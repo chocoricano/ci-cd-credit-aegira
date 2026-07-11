@@ -1,0 +1,13 @@
+services:
+  runner:
+    image: myoung34/github-runner:latest
+    container_name: github-runner
+    environment:
+      REPO_URL: https://github.com/chocoricano/credit-apps-aegira-ci-cd-andy
+      RUNNER_NAME: laptop-runner-2
+      RUNNER_TOKEN: A3B4SPPWX4HUXIGXMDGHJN3KKKHWS
+      LABELS: docker-local
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./runner-data:/runner/data
+    restart: unless-stopped

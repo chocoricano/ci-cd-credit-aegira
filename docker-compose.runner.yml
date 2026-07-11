@@ -4,8 +4,8 @@ services:
     container_name: github-runner
     environment:
       REPO_URL: https://github.com/chocoricano/ci-cd-credit-aegira
-      RUNNER_NAME: laptop-runner
-      RUNNER_TOKEN: A3B4SPODLH66Q6YC27ZAM23KKKMUM
+      RUNNER_NAME: laptop-runner-2
+      RUNNER_TOKEN: A3B4SPN32F55KVKZLB67SRTKKKNAU
       LABELS: docker-local
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock

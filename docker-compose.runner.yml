@@ -1,13 +1,16 @@
+
+name: aegira-runner-3
+
 services:
   runner:
     image: myoung34/github-runner:latest
-    container_name: github-runner
+    container_name: github-runner-3
     environment:
       REPO_URL: https://github.com/chocoricano/ci-cd-credit-aegira
-      RUNNER_NAME: laptop-runner-2
-      RUNNER_TOKEN: A3B4SPN32F55KVKZLB67SRTKKKNAU
+      RUNNER_NAME: laptop-runner-3
+      RUNNER_TOKEN: A3B4SPI5JJQPKXQBY4ZKCJLKKQXXK
       LABELS: docker-local
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ./runner-data:/runner/data
+      - ./runner-data-3:/runner/data
     restart: unless-stopped

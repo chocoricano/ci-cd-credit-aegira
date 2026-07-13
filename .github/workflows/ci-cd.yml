@@ -28,12 +28,53 @@ jobs:
           docker --version
           docker compose version
 
-      - name: Build and Deploy
-        run: docker compose up -d --build --remove-orphans
+      - name: Build Backend Image
+        run: |
+          docker build \
+            -t aegira-loan-service:latest \
+            ./aegira-loan-service
+
+      - name: Build Frontend Image
+        run: |
+          docker build \
+            -t aegira-loan-frontend:latest \
+            ./creditappdemo
+
+      - name: Login to Docker Hub
+        run: |
+          echo "${{ secrets.DOCKER_PASSWORD }}" | docker login \
+            -u "${{ secrets.DOCKER_USERNAME }}" \
+            --password-stdin
+
+      - name: Tag Backend Image
+        run: |
+          docker tag aegira-loan-service:latest \
+            ${{ secrets.DOCKER_USERNAME }}/aegira-loan-service:latest
+
+      - name: Tag Frontend Image
+        run: |
+          docker tag aegira-loan-frontend:latest \
+            ${{ secrets.DOCKER_USERNAME }}/aegira-loan-frontend:latest
+
+      - name: Push Backend Image
+        run: |
+          docker push \
+            ${{ secrets.DOCKER_USERNAME }}/aegira-loan-service:latest
+
+      - name: Push Frontend Image
+        run: |
+          docker push \
+            ${{ secrets.DOCKER_USERNAME }}/aegira-loan-frontend:latest
+
+      - name: Deploy Application
+        run: |
+          docker compose up -d --remove-orphans
 
       - name: Show running containers
-        run: docker compose ps
+        run: |
+          docker compose ps
 
       - name: Show logs if deployment fails
         if: failure()
-        run: docker compose logs
+        run: |
+          docker compose logs
